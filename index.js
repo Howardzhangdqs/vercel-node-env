@@ -15,7 +15,7 @@ app.all("*", function(req, res, next){
 	next();
 });
 
-app.get('/ip', (req, res) => {
+app.get('/', (req, res) => {
 	let h = req.headers;
 	res.set("Content-Type", "text/plain");
 	
