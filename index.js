@@ -16,7 +16,23 @@ app.all("*", function(req, res, next){
 });
 
 app.get('/', (req, res) => {
-	res.send('Hello World!');
+	let h = req.headers;
+	res.set("Content-Type", "text/plain");
+	
+	let ClientIp = (
+		req.headers['x-forwarded-for'] ||
+		req.connection.remoteAddress ||
+		req.socket.remoteAddress ||
+		req.connection.socket.remoteAddress || ''
+	).match(/\d+.\d+.\d+.\d+/);
+	ClientIp = ClientIp ? ClientIp.join('.') : null;
+	
+	res.send(JSON.stringify({
+		'host': h.host,
+		'connection': h.connection,
+		'user-agent': h["user-agent"],
+		"ClientIp": ClientIp,
+	}, null, "    "));
 })
 
 app.listen(port, () => {
