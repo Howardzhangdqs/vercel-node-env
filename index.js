@@ -15,7 +15,7 @@ app.all("*", function(req, res, next){
 	next();
 });
 
-app.get('/', (req, res) => {
+app.get('/ip', (req, res) => {
 	let h = req.headers;
 	res.set("Content-Type", "text/plain");
 	
@@ -31,7 +31,8 @@ app.get('/', (req, res) => {
 		'host': h.host,
 		'connection': h.connection,
 		'user-agent': h["user-agent"],
-		"ClientIp": ClientIp,
+		'time-stamp': + new Date(),
+		"client-ip": ClientIp,
 	}, null, "    "));
 })
 
